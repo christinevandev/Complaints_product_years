@@ -6,8 +6,8 @@ from pyspark.sql.functions import lower
 from pyspark.sql.functions import year
 import sys
 
-input_path = sys.argv[1]
-output_path = sys.argv[2]
+input = sys.argv[1]
+output = sys.argv[2]
 
 if __name__ == '__main__':
 
@@ -32,11 +32,11 @@ if __name__ == '__main__':
 	# join two pyspark dataframes: companies and complaints(results1) on columns 'Product' and 'Year'
 	results = results1.join(companies, ['Product','Year'])
 	# join two pyspark dataframes: results and percent on columns 'Product' and 'Year'
+	results = results.sort('Product','Year')
 	results = results.join(percent, ['Product','Year'])
 	results = results.withColumnRenamed('max(Most_Complaints)','Max_One_Company')
 	# calculate highest percentage of total complainst filed against one company by product and year
 	results = results.withColumn('Percent', format_number(results['Max_One_Company']*100/results['Complaints'],0))
 	results = results.drop('Max_One_Company')
 	
-	results = results.sort('Product','Year')
-	results.write.csv(output_path)
+	results.write.csv(output)
