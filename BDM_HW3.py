@@ -38,4 +38,5 @@ if __name__ == '__main__':
 	results = results.withColumn('Percent', format_number(results['Max_One_Company']*100/results['Complaints'],0))
 	results = results.drop('Max_One_Company')
 	
+	results.sort('Product','Year')
 	results.write.csv(output_path)
