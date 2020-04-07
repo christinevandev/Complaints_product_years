@@ -27,7 +27,7 @@ def parse_bdm_file(in_put,out_put):
 	# join two pyspark dataframes: companies and complaints(results1) on columns 'Product' and 'Year'
 	results = results1.join(companies, ['Product','Year'])
 	# join two pyspark dataframes: results and percent on columns 'Product' and 'Year'
-	results = results.sort('Product','Year')results = results.join(percent, ['Product','Year'])
+	results = results.join(percent, ['Product','Year'])
 	results = results.withColumnRenamed('max(Most_Complaints)','Max_One_Company')
 	# calculate highest percentage of total complainst filed against one company by product and year
 	results = results.withColumn('Percent', format_number(results['Max_One_Company']*100/results['Complaints'],0))
