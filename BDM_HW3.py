@@ -37,6 +37,5 @@ if __name__ == '__main__':
 	# calculate highest percentage of total complainst filed against one company by product and year
 	results = results.withColumn('Percent', format_number(results['Max_One_Company']*100/results['Complaints'],0))
 	results = results.drop('Max_One_Company')
-
-	results.collect()
-	results.coalesce(1).write.format("text").option("header", "false").mode("append").save(output_path)
+	
+	results.write.csv(output_path)
