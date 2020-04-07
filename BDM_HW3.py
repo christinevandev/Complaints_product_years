@@ -39,4 +39,4 @@ if __name__ == '__main__':
 	results = results.drop('Max_One_Company')
 
 	results.collect()
-	results.saveAsTextFile(output_path)
+	results.coalesce(1).write.format("text").option("header", "false").mode("append").save(output_path)
