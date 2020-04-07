@@ -34,7 +34,7 @@ def parse_bdm_file(in_put,out_put):
 	results = results.drop('Max_One_Company')
 	
 	results = results.sort('Product','Year')
-	results.write.csv(output)
+	results.write.csv(out_put)
 
 if __name__ == '__main__':
 	in_put = sys.argv[1]
