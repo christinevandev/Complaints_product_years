@@ -33,7 +33,7 @@ def parse_bdm_file(in_put,out_put):
 	results = results.withColumn('Percent', format_number(results['Max_One_Company']*100/results['Complaints'],0))
 	results = results.drop('Max_One_Company')
 	
-	results = results.sort('Product','Year')
+	results = results.orderBy('Product','Year')
 	results.write.csv(out_put)
 
 if __name__ == '__main__':
