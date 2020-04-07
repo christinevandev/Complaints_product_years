@@ -14,7 +14,7 @@ if __name__ == '__main__':
 	spark = SparkSession.builder.getOrCreate()
 
 	# create a pyspark df
-	complaints = spark.read.csv(input_path, header=True, multiLine=True, escape='"', inferSchema=True)
+	complaints = spark.read.csv(input, header=True, multiLine=True, escape='"', inferSchema=True)
 	# select relevant columns only
 	complaints = complaints.select(complaints['Date received'].alias('Date'), lower(complaints['Product']).alias('Product'), complaints['Company'])
 	# extract the year
